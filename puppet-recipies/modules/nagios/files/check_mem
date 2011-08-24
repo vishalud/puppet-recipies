@@ -1,0 +1,25 @@
+#!/bin/sh
+ramtotal=`free -m|awk '/Mem/ {print $2}'`
+ramused=`free -m|awk '/Mem/ {print $3}'`
+ramfree=`free -m|awk '/Mem/ {print $4}'`
+swaptotal=`free -m|awk '/Swap/ {print $2}'`
+swapused=`free -m|awk '/Swap/ {print $3}'`
+swapfree=`free -m|awk '/Swap/ {print $4}'`
+
+used_percent_swap=`echo -e $swapused*100/$swaptotal|bc`
+free_percent_swap=`echo -e $swapfree*100/$swaptotal|bc`
+used_percent_Mem=`echo -e $ramused*100/$ramtotal|bc`
+free_percent_Mem=`echo -e $ramfree*100/$ramtotal|bc`
+
+#echo -e "Used=$ramused M, Free=$ramfree M, Total=$ramtotal M, Swap Used=$swapused M, Swap Free=$swapfree M, Swap Total=$swaptotal M| used_percent_swap=$used_percent_swap MB - free_percent_swap=$free_percent_swap MB - used_percent_Mem=$used_percent_Mem MB - free_percent_Mem=$free_percent_Mem MB"
+
+usage=`echo -e "RAM Usage : $used_percent_Mem Swap Usage : $used_percent_swap"`
+
+if [ "$used_percent_Mem" -ge 90 ] && [ "$used_percent_swap" -ge 70 ];  then
+	echo "Critical:$usage"
+	exit 2
+else
+	echo "Okay : $usage"
+	exit 0
+fi
+

@@ -1,0 +1,15 @@
+# default: on
+# description: NRPE
+service nrpe
+{
+                disable         = no
+                flags           = REUSE
+                socket_type     = stream
+                wait            = no
+                user            = nagios
+                group           = nagios
+                server          = /usr/sbin/nrpe
+                server_args     = -n -i -c /etc/nagios/nrpe.cfg
+                log_on_failure  += USERID
+                only_from       = 127.0.0.1 172.16.140.51 172.16.140.50
+}

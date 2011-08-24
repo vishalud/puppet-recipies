@@ -1,0 +1,5 @@
+#!/bin/bash
+
+disks=`mount | grep "ext\|xfs\|fuse" |awk '{print "-p "$3}'`
+
+/opt/nagios/libexec/check_disk -w 5% -c 5% $disks

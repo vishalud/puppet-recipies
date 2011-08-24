@@ -1,0 +1,6 @@
+##This is a Puppet generated file . Any changes will be overwritten in the next run 
+
+#Deleting Older Backups at 1AM Sunday
+0 1 * * 0 /bin/rm -f /backups/*
+#Start New Backups at 3AM Sunday
+0 3 * * 0 /opt/scripts/vm_backup.sh

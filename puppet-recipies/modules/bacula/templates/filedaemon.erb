@@ -1,0 +1,46 @@
+##Bacula file daemon from Puppet Template
+# Registered on <%= fqdn %>
+
+#
+# Default  Bacula File Daemon Configuration file
+#
+#  For Bacula release 5.0.3 (30 August 2010) -- redhat
+#
+# There is not much to change here except perhaps the
+# File daemon Name to
+#
+
+#
+# List Directors who are permitted to contact this File daemon
+#
+Director {
+  Name = M1-SV-Backup-SRV-dir
+  Password = "bacula"
+}
+
+#
+# Restricted Director, used by tray-monitor to get the
+#   status of the file daemon
+#
+Director {
+  Name = M1-SV-Backup-SRV-mon
+  Password = "bacula"
+  Monitor = yes
+}
+
+#
+# "Global" File daemon configuration specifications
+#
+FileDaemon {                          # this is me
+  Name = <%= fqdn %>-fd
+  FDport = 9102                  # where we listen for the director
+  WorkingDirectory = /var/lib/bacula
+  Pid Directory = /var/run
+  Maximum Concurrent Jobs = 20
+}
+
+# Send all messages except skipped files back to Director
+Messages {
+  Name = Standard
+  director = M1-SV-Backup-SRV-dir = all, !skipped, !restored
+}

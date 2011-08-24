@@ -1,0 +1,28 @@
+#!/bin/bash
+
+daemon=$1
+
+if [ -z $daemon ];then
+        echo "Usage : $0 <daemon>"
+        exit 3
+fi
+
+ps auxw|grep $daemon | grep -v grep | grep -v check_daemon 2>&1 1> /dev/null
+
+status=$?
+
+if [ -z "$status"  -o "$status" -gt "0" ];then
+        echo "CRIT : No process running with name $daemon"
+        exit 2
+fi
+
+count=`ps auxw|grep $daemon | grep -v grep | grep -v check_daemon | sed -n '$='`
+
+if [ $count -eq 0 ];then
+        echo "CRIT : No process running with name $daemon"
+        exit 2
+else
+        echo "OK : $count process running with name $daemon"
+        exit 0
+fi
+
