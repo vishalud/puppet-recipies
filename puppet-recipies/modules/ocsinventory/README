@@ -1,0 +1,22 @@
+Overview : 
+	This module manages ocsinventory inventory management client side requirements 
+Usage : 
+	node xyz { 
+		include ocsinventory 
+	}
+
+Classes : 
+
+	1.) ocsinventory
+
+ocsinventory
+===========
+
+Resources managed by ocsinventory are as follows 
+	
+	Packages : 
+		1.) "ocsinventory-agent"
+	
+	Command : 
+		1.) Exec["sudo /usr/sbin/ocsinventory-agent --server=http://122.182.0.38:1700/ocsinventory"] 
+		
