@@ -4,3 +4,5 @@
 0 1 * * 0 /bin/rm -f /backups/*
 #Start New Backups at 3AM Sunday
 0 3 * * 0 /opt/scripts/vm_backup.sh
+#Email Notifications for Backups 
+0 9 * * 0 /opt/scripts/send_email.sh
